@@ -1,0 +1,3 @@
+domain\WasteDisposalForDistrict.class
+handler\WasteDisposalRequestHandler.class
+domain\WasteDisposalDayInfo.class
