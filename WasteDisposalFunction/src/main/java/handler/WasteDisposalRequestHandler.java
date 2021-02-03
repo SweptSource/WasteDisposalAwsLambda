@@ -21,16 +21,16 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
  * Handler for requests to Lambda function.
  */
 public class WasteDisposalRequestHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
-    static LambdaLogger logger;
 
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
-        logger = context.getLogger();
+        LambdaLogger logger = context.getLogger();
         logger.log("INFORMATION: " + "handleRequest started");
         logger.log("INPUT: " + input);
         logger.log("CONTEXT: " + context);
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
         headers.put("X-Custom-Header", "application/json");
+        headers.put("Access-Control-Allow-Origin", "*"); // MUST przy Proxy Integration - CORS po stronie Lambdy
 
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
@@ -52,14 +52,13 @@ public class WasteDisposalRequestHandler implements RequestHandler<APIGatewayPro
             System.out.println("Attempting to read the item...");
             outcome = table.getItem(spec);
             System.out.println("GetItem succeeded: " + outcome);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Unable to read item: " + dzielnica);
             System.err.println(e.getMessage());
         }
 
         try {
-            String output = outcome.toString();
+            String output = outcome.toJSON();
             return response
                     .withStatusCode(200)
                     .withBody(output);

@@ -1,0 +1,9 @@
+Resources:
+  Function:
+    Type: AWS::Serverless::Function
+    Properties:
+      Timeout: 300
+      MemorySize: 128
+      Handler: handler.WasteDisposalRequestHandler
+      CodeUri: D:\_Dyplom\Lambda\repo\WasteDisposalAwsLambda\WasteDisposalFunction\.aws-sam\build\Function
+      Runtime: java8.al2

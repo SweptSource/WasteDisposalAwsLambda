@@ -8,4 +8,25 @@
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="deploySettings">
+    <option name="samConfigs">
+      <map>
+        <entry key="template.yaml">
+          <value>
+            <DeploySamConfig>
+              <option name="autoExecute" value="true" />
+              <option name="bucketName" value="elasticbeanstalk-eu-central-1-580489004660" />
+              <option name="enabledCapabilities">
+                <list>
+                  <option value="IAM" />
+                  <option value="NAMED_IAM" />
+                </list>
+              </option>
+              <option name="stackName" value="WasteDisposalAwsLambda" />
+            </DeploySamConfig>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
 </module>

@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'WasteDisposalAwsLambda
+
+  Sample SAM Template for WasteDisposalAwsLambda
+
+  '
+Globals:
+  Function:
+    Timeout: 20
+Resources:
+  WasteDisposalFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://elasticbeanstalk-eu-central-1-580489004660/416d31972fba50d00bdf500d6e9222dc
+      Handler: handler.WasteDisposalRequestHandler::handleRequest
+      Runtime: java8
+      MemorySize: 512
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      Events:
+        WasteDisposal:
+          Type: Api
+          Properties:
+            Path: /disposal
+            Method: get
+Outputs:
+  WasteDisposalApi:
+    Description: API Gateway endpoint URL for Prod stage for Waste Disposal function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/disposal/
+  WasteDisposalFunction:
+    Description: Waste Disposal Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - WasteDisposalFunction
+      - Arn
+  WasteDisposalFunctionIamRole:
+    Description: Implicit IAM Role created for Waste Disposal function
+    Value:
+      Fn::GetAtt:
+      - WasteDisposalFunctionRole
+      - Arn
